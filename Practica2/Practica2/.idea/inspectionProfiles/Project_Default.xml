@@ -1,0 +1,24 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="cv2" />
+          <option value="numpy.arctan2" />
+          <option value="numpy.int" />
+          <option value="numpy.array" />
+          <option value="numpy.cos" />
+          <option value="numpy.sin" />
+          <option value="numpy.pi" />
+          <option value="numpy.full" />
+          <option value="numpy.argmax" />
+          <option value="numpy.zeros" />
+          <option value="numpy.ones" />
+          <option value="copy" />
+          <option value="matplotlib.pyplot" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
