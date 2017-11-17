@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 import copy
-import cv2.xfeatures2d
 
 # Función para leer una imagen.
 def readImage(imagePath):
@@ -96,9 +95,6 @@ def comprobarMaximoCentral(matriz,tam_ventana,x,y):
 
     return   pos_max == maximo
 
-
-
-
 # Función que hace que cambie los valores de una matriz a 0 dado un tamaño.
 def cambiarACero(mat_binaria,tam_ventana,pos_x,pos_y):
     # Calculamos inicio y final en ambas direcciones.
@@ -149,11 +145,11 @@ def dibujarPuntos(puntos,imagen,orientaciones=[]):
 
     for i in range(len(puntosOriginal)):
         for indices in puntosOriginal[i]:
-            cv2.circle(img, (indices[1],indices[0]) , radius=(i+1), color=1, thickness=-1)
+            cv2.circle(img, (indices[1],indices[0]) , radius=(2*i+1), color=1, thickness=-1)
 
     if(len(orientaciones) > 0):
         for i in range(len(puntosOriginal)):
-            radius=(i+1)
+            radius=(2*i+1)
             for j in range(len(orientaciones)):
                 p = puntosOriginal[i][j]
                 angulo= orientaciones[i][j]*180/np.pi
@@ -219,11 +215,39 @@ def calcularOrientacion(imagenes,harrys,sigma=5):
 def computarDescriptoresSIFT():
     detector_sift = cv2.xfeatures2d.SIFT_create()
 
+# Función para crear el vector de keypoints.
+def createKeypoints(puntos,orientaciones):
+    # vector de keypoints
+    kp = []
+
+    for i in range(len(puntos)):
+        px = puntos[i][:,0]
+        py = puntos[i][:,1]
+        ang = orientaciones[i][:]
+        size= 2*i + 1
+
+        for j in range(len(px)):
+            kp.append(cv2.KeyPoint(x=px[j],y=py[j],_angle=ang[j],_size=size))
+
+
+    return kp
+
+# Función para calcular los descriptores.
+def calculateDescriptors(image,keypoints):
+    img=copy.deepcopy(image)
+    gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+
+    sift = cv2.xfeatures2d.SIFT_create()
+    kp,descriptors = sift.detectAndCompute(gray,None)
+
+    sol=[kp,descriptors]
+    return sol
+
 #-----------------------------------------------------------------------------------------------------------------------
 # Prueba lectura de imagen.
 yosemite = readImage("imagenes/yosemite1.jpg")
 imags = []
-createGuassianPyramid(yosemite,imagenes=imags,niveles=5);
+createGuassianPyramid(yosemite,imagenes=imags,niveles=5)
 
 blockSize=2
 apertureSize=1
@@ -250,3 +274,14 @@ plt.show()
 
 detector_sift = cv2.xfeatures2d.SIFT_create()
 
+img=cv2.imread("imagenes/yosemite1.jpg")
+
+kp = createKeypoints(puntos,orientaciones)
+keyPoints,descriptors = calculateDescriptors(img,kp)
+img2 = copy.deepcopy(img)
+
+cv2.drawKeypoints(img,keyPoints,outImage=img2,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+gray=cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+plt.imshow(gray,'gray')
+plt.show()
+cv2.imwrite("sift.png",img2)
