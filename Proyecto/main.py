@@ -14,7 +14,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-prueba = cv2.imread('pelota.jpg')
+prueba = cv2.imread('imágenes/pelota.jpg')
 prueba = cv2.cvtColor(src=prueba,code=cv2.COLOR_BGR2RGB)
 # plt.imshow(prueba)
 # plt.show()
@@ -94,7 +94,7 @@ def cropObjectFromImage(mask,image):
 pelota = cropObjectFromImage(mask=mask_prueba,image=prueba)
 
 
-avion = cv2.imread('airplane.jpg')
+avion = cv2.imread('imágenes/airplane.jpg')
 avion = cv2.cvtColor(src=avion,code=cv2.COLOR_BGR2RGB)
 # plt.imshow(avion)
 # plt.show()
@@ -104,7 +104,7 @@ mask_avion = extractObjectFromImage(image=avion,threshold=umbral)
 avion_recortado = cropObjectFromImage(mask_avion,avion)
 
 
-sofa = cv2.imread('sofa.jpg')
+sofa = cv2.imread('imágenes/sofa.jpg')
 sofa = cv2.cvtColor(src=sofa,code=cv2.COLOR_BGR2RGB)
 # plt.imshow(sofa)
 # plt.show()
@@ -115,7 +115,7 @@ sofa_crop = cropObjectFromImage(image=sofa,mask=mask_sofa)
 
 
 
-aguila = cv2.imread('aguila.png')
+aguila = cv2.imread('imágenes/aguila.png')
 aguila = cv2.cvtColor(src=aguila,code=cv2.COLOR_BGR2RGB)
 # plt.imshow(aguila)
 # plt.show()
@@ -136,7 +136,7 @@ aguila_crop = cropObjectFromImage(image=aguila,mask=mask_aguila)
 # In[17]:
 
 
-destino_prueba = cv2.imread('nino_playa.jpg')
+destino_prueba = cv2.imread('imágenes/nino_playa.jpg')
 destino_prueba = cv2.cvtColor(destino_prueba,cv2.COLOR_BGR2RGBA)
 dest = destino_prueba.copy()
 plt.imshow(destino_prueba)
@@ -225,7 +225,7 @@ plt.show()
 # In[22]:
 
 
-salon = cv2.imread('salon2.jpg')
+salon = cv2.imread('imágenes/salon2.jpg')
 salon = cv2.cvtColor(salon, cv2.COLOR_BGR2RGBA)
 plt.imshow(salon)
 plt.show()
@@ -248,7 +248,7 @@ plt.show()
 # In[26]:
 
 
-pista_at = cv2.imread('pista.jpg')
+pista_at = cv2.imread('imágenes/pista.jpg')
 pista_at = cv2.cvtColor(pista_at,cv2.COLOR_BGR2RGB)
 plt.imshow(pista_at)
 plt.show()
@@ -270,7 +270,7 @@ plt.show()
 # In[30]:
 
 
-bosque_noche = cv2.imread('destino1.png')
+bosque_noche = cv2.imread('imágenes/destino1.png')
 bosque_noche = cv2.cvtColor(bosque_noche,cv2.COLOR_BGR2RGB)
 plt.imshow(bosque_noche)
 plt.show()
